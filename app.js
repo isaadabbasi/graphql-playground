@@ -2,7 +2,9 @@ require('./pre-exec');
 const express = require('express');
 const GraphQLHttp = require('express-graphql');
 
+require('./src/db/connection');
 const GraphQLSchema = require('./src/gql')
+
 
 const server = express();
 const port = process.env.PORT || 3300;
