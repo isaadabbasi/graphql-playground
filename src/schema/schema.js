@@ -1,30 +1,43 @@
 const GraphQL = require('graphql');
-const Books = require('../mocks/books');
+const { Authors, Books } = require('../mocks');
+const AuthorType = require('./author.typeDef');
+const BookType = require('./book.typeDef');
+const { GraphQLObjectType, GraphQLID, GraphQLSchema, GraphQLList } = GraphQL;
 
-const { GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLSchema } = GraphQL;
-
-
-
-const BookType = new GraphQLObjectType({
-  name: 'Book',
-  fields: () => ({
-    id: GraphQLString,
-    name: GraphQLString,
-    genre: GraphQLString,
-  }),
-});
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
+    author: {
+      type: AuthorType,
+      args: { id: { type: GraphQLID }},
+      resolve(parent, args) {
+        return Authors.find(author => author.id === args.id);
+      }
+    },
+
     book: {
       type: BookType,
-      args: { id: { type: GraphQLString }},
+      args: { id: { type: GraphQLID }},
       resolve(parent, args) {
-        console.log('args: ', args);
         return Books.find(book => book.id === args.id);
       }
     },
+
+    authors: {
+      type: new GraphQLList(AuthorType),
+      resolve(parent, args) {
+        return Authors;
+      }
+    },
+
+    books: {
+      type: new GraphQLList(BookType),
+      resolve(parent, args) {
+        return Books;
+      }
+    },
+
   },
 });
 
