@@ -1,9 +1,11 @@
+require('./pre-exec');
 const express = require('express');
 const GraphQLHttp = require('express-graphql');
 
-const GraphQLSchema = require('./src/schema/schema')
+const GraphQLSchema = require('./src/gql')
+
 const server = express();
-const port = 3300;
+const port = process.env.PORT || 3300;
 
 // * Setup graphql route
 server.use('/', GraphQLHttp({
@@ -15,3 +17,5 @@ server.use('/', GraphQLHttp({
 server.listen(port, function() {
   console.log(`Server listening on Port: ${port}`)
 });
+
+console.log(process.env.PORT)

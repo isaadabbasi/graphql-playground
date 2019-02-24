@@ -1,7 +1,7 @@
 const GraphQl = require('graphql');
 const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLInt, GraphQLList } = GraphQl;
 
-const { Books } = require('../mocks');
+const { Books } = require('../../mocks');
 
 const AuthorType = new GraphQLObjectType({
   name: 'Author',

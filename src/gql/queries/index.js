@@ -1,8 +1,9 @@
 const GraphQL = require('graphql');
-const { Authors, Books } = require('../mocks');
-const AuthorType = require('./author.typeDef');
-const BookType = require('./book.typeDef');
-const { GraphQLObjectType, GraphQLID, GraphQLSchema, GraphQLList } = GraphQL;
+const { GraphQLObjectType, GraphQLID, GraphQLList } = GraphQL;
+
+const { Authors, Books } = require('../../mocks');
+const AuthorType = require('../typeDefs/author.typeDef');
+const BookType = require('../typeDefs/book.typeDef');
 
 
 const RootQuery = new GraphQLObjectType({
@@ -41,6 +42,4 @@ const RootQuery = new GraphQLObjectType({
   },
 });
 
-module.exports = new GraphQLSchema({
-  query: RootQuery
-});
+module.exports = RootQuery;
